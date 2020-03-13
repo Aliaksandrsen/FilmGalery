@@ -1,11 +1,22 @@
 import React from 'react';
-import { SafeAreaView, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const Header = ({ title }) => {
-  const { viewStyle, textStyle } = styles;
+const Header = ({ title, onPress, leftIcon, leftColor }) => {
+  const {
+    viewStyle,
+    textStyle,
+    leftButtonStyle,
+    leftButtonTouchableOpacity,
+  } = styles;
   return (
     <SafeAreaView style={viewStyle}>
-      <Text style={textStyle}>{title}</Text>
+      <TouchableOpacity style={leftButtonTouchableOpacity} onPress={onPress}>
+        <Ionicons name={leftIcon} style={leftButtonStyle} color={leftColor} />
+      </TouchableOpacity>
+      <Text numberOfLines={1} ellipsizeMode="tail" style={textStyle}>
+        {title}
+      </Text>
     </SafeAreaView>
   );
 };
@@ -29,6 +40,17 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 28,
     fontFamily: 'AvenirNext-DemiBold',
+    paddingLeft: 40,
+    paddingRight: 40,
+  },
+  leftButtonTouchableOpacity: {
+    alignSelf: 'flex-start',
+    paddingLeft: 20,
+    zIndex: 2,
+  },
+  leftButtonStyle: {
+    marginBottom: -50,
+    fontSize: 35,
   },
 });
 
