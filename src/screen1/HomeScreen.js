@@ -3,10 +3,11 @@ import { StyleSheet, ScrollView, View } from 'react-native';
 
 import Header from '../components/Header';
 import ImageCard from '../components/ImageCard';
+
+import { STARGATE_DETAILS } from '../routes';
 // import { w, h } from '../constans';
 
-// const url = 'https://gitlab.com/gHashTag/react-native-init-data/-/raw/master/db.json';
-const url = 'http://api.tvmaze.com/search/shows?q=stargate';
+const url = 'http://api.tvmaze.com/search/shows?q=war';
 
 export default class HomeScreen extends Component {
   state = {
@@ -31,8 +32,6 @@ export default class HomeScreen extends Component {
   }
 
   render() {
-    // console.log(data);
-    console.log(this.props);
     const { title, data } = this.state;
     const { navigation } = this.props;
     const { conteiner } = styles;
@@ -46,7 +45,9 @@ export default class HomeScreen extends Component {
                 <ImageCard
                   key={item.show.id}
                   data={item.show}
-                  onPress={() => navigation.navigate}
+                  onPress={() =>
+                    navigation.navigate(STARGATE_DETAILS, item.show)
+                  }
                 />
               );
             })}
