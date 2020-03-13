@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
 
-import Header from './src/components/Header';
-import ImageCard from './src/components/ImageCard';
-import { w, h } from './src/constans';
+import Header from '../components/Header';
+import ImageCard from '../components/ImageCard';
+// import { w, h } from '../constans';
 
-const url =
-  'https://gitlab.com/gHashTag/react-native-init-data/-/raw/master/db.json';
+// const url = 'https://gitlab.com/gHashTag/react-native-init-data/-/raw/master/db.json';
+const url = 'http://api.tvmaze.com/search/shows?q=stargate';
 
-export default class App extends Component {
+export default class HomeScreen extends Component {
   state = {
     title: 'FILM LIST',
     data: [],
@@ -31,7 +31,10 @@ export default class App extends Component {
   }
 
   render() {
+    // console.log(data);
+    console.log(this.props);
     const { title, data } = this.state;
+    const { navigation } = this.props;
     const { conteiner } = styles;
     return (
       <View>
@@ -39,7 +42,13 @@ export default class App extends Component {
         <ScrollView>
           <View style={conteiner}>
             {data.map(item => {
-              return <ImageCard key={item.id} data={item} />;
+              return (
+                <ImageCard
+                  key={item.show.id}
+                  data={item.show}
+                  onPress={() => navigation.navigate}
+                />
+              );
             })}
           </View>
         </ScrollView>

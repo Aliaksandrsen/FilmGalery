@@ -3,11 +3,12 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import { w } from '../constans';
 
 const ImageCard = ({ data: { image, name } }) => {
+  const img = `https${image.medium.slice(4)}`;
   const { conteiner, sub, text, cover } = styles;
   return (
     <View style={conteiner}>
       <View style={sub}>
-        <Image style={cover} source={{ uri: image }} />
+        <Image style={cover} source={{ uri: img }} />
       </View>
       <Text style={text}>{name.toUpperCase()}</Text>
     </View>
