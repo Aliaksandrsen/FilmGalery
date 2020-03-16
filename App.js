@@ -1,60 +1,35 @@
-import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View } from 'react-native';
+import React from 'react';
+import { createBottomTabNavigator } from 'react-navigation';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import Header from './src/components/Header';
-import ImageCard from './src/components/ImageCard';
-import { w, h } from './src/constans';
+import One from './src/screen1';
+import Two from './src/screen2';
+import Three from './src/screen3';
 
-const url =
-  'https://gitlab.com/gHashTag/react-native-init-data/-/raw/master/db.json';
-
-export default class App extends Component {
-  state = {
-    title: 'FILM LIST',
-    data: [],
-  };
-
-  componentDidMount() {
-    const makeRequest = async () => {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        await this.setState({
-          data,
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    makeRequest();
-  }
-
-  render() {
-    const { title, data } = this.state;
-    const { conteiner } = styles;
-    return (
-      <View>
-        <Header title={title} />
-        <ScrollView>
-          <View style={conteiner}>
-            {data.map(item => {
-              return <ImageCard key={item.id} data={item} />;
-            })}
-          </View>
-        </ScrollView>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  conteiner: {
-    marginTop: 30,
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    marginBottom: 150,
+export default createBottomTabNavigator(
+  {
+    Stargate: One,
+    Batman: Two,
+    Spiderman: Three,
   },
-});
+  {
+    navigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === 'Stargate') {
+          iconName = focused ? 'ios-videocam' : 'ios-play';
+        } else if (routeName === 'Batman') {
+          iconName = focused ? 'ios-videocam' : 'ios-play';
+        } else if (routeName === 'Spiderman') {
+          iconName = focused ? 'ios-videocam' : 'ios-play';
+        }
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'blue',
+      inactiveTintColor: 'grey',
+    },
+  },
+);
