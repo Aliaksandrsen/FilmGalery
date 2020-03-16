@@ -18,9 +18,9 @@ export default class DetailsScreen extends Component {
       <View style={container}>
         <Header
           title={name}
-          onPress={() => navigation.goBack()}
-          leftIcon="ios-arrow-back"
-          leftColor={'#ffffff'}
+          onPressLeft={() => navigation.goBack()}
+          iconLeft="ios-arrow-back"
+          colorLeft={'#ffffff'}
         />
         <ScrollView style={scroll}>
           <View style={sub}>

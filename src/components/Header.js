@@ -1,19 +1,44 @@
 import React from 'react';
 import { SafeAreaView, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+// import { w } from '../constans';
 
-const Header = ({ title, onPress, leftIcon, leftColor }) => {
+const Header = ({
+  iconLeft,
+  iconRight,
+  colorLeft,
+  colorRight,
+  title,
+  onPressLeft,
+  onPressRight,
+}) => {
   const {
-    viewStyle,
+    container,
     textStyle,
-    leftButtonStyle,
+    iconLeftStyle,
+    iconRightStyle,
     leftButtonTouchableOpacity,
+    rightButtonTouchableOpacity,
   } = styles;
   return (
-    <SafeAreaView style={viewStyle}>
-      <TouchableOpacity style={leftButtonTouchableOpacity} onPress={onPress}>
-        <Ionicons name={leftIcon} style={leftButtonStyle} color={leftColor} />
+    <SafeAreaView style={container}>
+      <TouchableOpacity
+        style={leftButtonTouchableOpacity}
+        onPress={onPressLeft}>
+        <Ionicons name={iconLeft} style={iconLeftStyle} color={colorLeft} />
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={rightButtonTouchableOpacity}
+        onPress={onPressRight}>
+        <MaterialCommunityIcons
+          name={iconRight}
+          style={[iconRightStyle, { color: colorRight }]}
+          color={colorRight}
+        />
+      </TouchableOpacity>
+
       <Text numberOfLines={1} ellipsizeMode="tail" style={textStyle}>
         {title}
       </Text>
@@ -22,8 +47,8 @@ const Header = ({ title, onPress, leftIcon, leftColor }) => {
 };
 
 const styles = StyleSheet.create({
-  viewStyle: {
-    justifyContent: 'center',
+  container: {
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#f49f30',
     height: 116,
@@ -48,7 +73,17 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     zIndex: 2,
   },
-  leftButtonStyle: {
+  rightButtonTouchableOpacity: {
+    alignSelf: 'flex-end',
+    paddingRight: 20,
+    zIndex: 2,
+  },
+  iconLeftStyle: {
+    marginBottom: -50,
+    fontSize: 35,
+  },
+  iconRightStyle: {
+    alignSelf: 'flex-end',
     marginBottom: -50,
     fontSize: 35,
   },

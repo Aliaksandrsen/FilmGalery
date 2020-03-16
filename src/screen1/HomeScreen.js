@@ -37,7 +37,12 @@ export default class HomeScreen extends Component {
     const { conteiner } = styles;
     return (
       <View>
-        <Header title={title} onPress={() => navigation.openDrawer()} />
+        <Header
+          title={title}
+          colorRight={'#fff'}
+          iconRight="magnify"
+          nPress={() => navigation.openDrawer()}
+        />
         <ScrollView>
           <View style={conteiner}>
             {data.map(item => {
