@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, View } from 'react-native';
 
 import Header from '../components/Header';
 import ImageCard from '../components/ImageCard';
+import SearchBar from '../components/SearchBar';
 
 import { STARGATE_DETAILS } from '../routes';
 // import { w, h } from '../constans';
@@ -13,6 +14,8 @@ export default class HomeScreen extends Component {
   state = {
     title: 'FILM LIST',
     data: [],
+    visibleSearchbar: false,
+    text: 'movie',
   };
 
   componentDidMount() {
@@ -31,18 +34,37 @@ export default class HomeScreen extends Component {
     makeRequest();
   }
 
+  onSearchChange = text => {
+    console.log(text);
+    this.setState({
+      text: text,
+    });
+  };
+
   render() {
-    const { title, data } = this.state;
+    const { title, data, visibleSearchbar } = this.state;
     const { navigation } = this.props;
     const { conteiner } = styles;
     return (
       <View>
-        <Header
-          title={title}
-          colorRight={'#fff'}
-          iconRight="magnify"
-          nPress={() => navigation.openDrawer()}
-        />
+        {visibleSearchbar ? (
+          <SearchBar
+            colorRight="#fff"
+            iconRight="magnify"
+            placeholder="Search"
+            onChangeText={this.onSearchChange}
+            value={this.state.text}
+            onPressRight={() => this.setState({ visibleSearchbar: false })}
+            onBlur={() => this.setState({ visibleSearchbar: false })}
+          />
+        ) : (
+          <Header
+            title={title}
+            colorRight={'#fff'}
+            iconRight="magnify"
+            onPressRight={() => this.setState({ visibleSearchbar: true })}
+          />
+        )}
         <ScrollView>
           <View style={conteiner}>
             {data.map(item => {

@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
     fontFamily: 'AvenirNext-DemiBold',
     paddingLeft: 40,
     paddingRight: 40,
+    paddingBottom: 15,
   },
   leftButtonTouchableOpacity: {
     alignSelf: 'flex-start',
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
   },
   iconRightStyle: {
     alignSelf: 'flex-end',
-    marginBottom: -50,
+    marginBottom: -40,
     fontSize: 35,
   },
 });
