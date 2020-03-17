@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { StyleSheet, ScrollView, View } from 'react-native';
+import { connect } from 'react-redux';
 
 import Header from '../components/Header';
 import ImageCard from '../components/ImageCard';
 import SearchBar from '../components/SearchBar';
+
+import { searchChanged } from '../actions';
 
 import { STARGATE_DETAILS } from '../routes';
 // import { w, h } from '../constans';
 
 const url = 'http://api.tvmaze.com/search/shows?q=war';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   state = {
     title: 'FILM LIST',
     data: [],
@@ -34,17 +37,19 @@ export default class HomeScreen extends Component {
     makeRequest();
   }
 
-  onSearchChange = text => {
-    console.log(text);
-    this.setState({
-      text: text,
-    });
-  };
+  // onSearchChange = text => {
+  //   console.log(text);
+  //   this.setState({
+  //     text: text,
+  //   });
+  // };
 
   render() {
     const { title, data, visibleSearchbar } = this.state;
     const { navigation } = this.props;
     const { conteiner } = styles;
+    console.log(this.props);
+
     return (
       <View>
         {visibleSearchbar ? (
@@ -52,8 +57,9 @@ export default class HomeScreen extends Component {
             colorRight="#fff"
             iconRight="magnify"
             placeholder="Search"
-            onChangeText={this.onSearchChange}
-            value={this.state.text}
+            // onChangeText={this.onSearchChange}
+            onChangeText={this.props.searchChangedd}
+            //! value={this.state.text}
             onPressRight={() => this.setState({ visibleSearchbar: false })}
             onBlur={() => this.setState({ visibleSearchbar: false })}
           />
@@ -95,3 +101,18 @@ const styles = StyleSheet.create({
     marginBottom: 150,
   },
 });
+
+// const mapStateToProps = () => {
+
+// };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    searchChangedd: text => dispatch(searchChanged(text)),
+  };
+};
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(HomeScreen);
