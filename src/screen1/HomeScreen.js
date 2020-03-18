@@ -6,49 +6,25 @@ import Header from '../components/Header';
 import ImageCard from '../components/ImageCard';
 import SearchBar from '../components/SearchBar';
 
-import { searchChanged } from '../actions';
+import { searchChanged, getMovies } from '../actions';
 
 import { STARGATE_DETAILS } from '../routes';
-// import { w, h } from '../constans';
-
-const url = 'http://api.tvmaze.com/search/shows?q=war';
 
 class HomeScreen extends Component {
   state = {
     title: 'FILM LIST',
-    data: [],
     visibleSearchbar: false,
-    text: 'movie',
   };
 
-  componentDidMount() {
-    const makeRequest = async () => {
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        await this.setState({
-          data,
-        });
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    makeRequest();
-  }
-
-  // onSearchChange = text => {
-  //   console.log(text);
-  //   this.setState({
-  //     text: text,
-  //   });
-  // };
+  onSearchChange = text => {
+    this.props.searchChangedd(text);
+    this.props.getMovies(text);
+  };
 
   render() {
-    const { title, data, visibleSearchbar } = this.state;
-    const { navigation } = this.props;
+    const { title, visibleSearchbar } = this.state;
+    const { navigation, movie, data } = this.props;
     const { conteiner } = styles;
-    console.log(this.props);
 
     return (
       <View>
@@ -57,9 +33,8 @@ class HomeScreen extends Component {
             colorRight="#fff"
             iconRight="magnify"
             placeholder="Search"
-            // onChangeText={this.onSearchChange}
-            onChangeText={this.props.searchChangedd}
-            //! value={this.state.text}
+            onChangeText={this.onSearchChange}
+            value={movie}
             onPressRight={() => this.setState({ visibleSearchbar: false })}
             onBlur={() => this.setState({ visibleSearchbar: false })}
           />
@@ -102,17 +77,26 @@ const styles = StyleSheet.create({
   },
 });
 
-// const mapStateToProps = () => {
-
-// };
+const mapStateToProps = state => {
+  return {
+    movie: state.search.movie,
+    data: state.search.data,
+  };
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     searchChangedd: text => dispatch(searchChanged(text)),
+    getMovies: text => dispatch(getMovies(text)),
   };
 };
 
+// const mapDispatchToProps = {
+//   searchChangedd: searchChanged,
+//   getMovies: getMovies,
+// };
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(HomeScreen);

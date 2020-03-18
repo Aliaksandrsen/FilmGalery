@@ -1,13 +1,11 @@
 import React from 'react';
 import {
   SafeAreaView,
-  // Text,
   StyleSheet,
   TouchableOpacity,
   View,
   TextInput,
 } from 'react-native';
-// import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { w } from '../constans';
 
@@ -16,7 +14,7 @@ const SearchBar = ({
   colorRight,
   onPressRight,
   onChangeText,
-  placeHolder,
+  placeholder,
   value,
   onBlur,
 }) => {
@@ -34,7 +32,7 @@ const SearchBar = ({
         <TextInput
           style={inputStyle}
           onChangeText={onChangeText}
-          placeholder={placeHolder}
+          placeholder={placeholder}
           value={value}
           onBlur={onBlur}
         />

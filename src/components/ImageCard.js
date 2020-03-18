@@ -3,7 +3,10 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { w } from '../constans';
 
 const ImageCard = ({ data: { image, name }, onPress }) => {
-  const img = `https${image.medium.slice(4)}`;
+  const img =
+    image === null
+      ? 'https://reactnative.dev/img/header_logo.svg'
+      : `https${image.medium.slice(4)}`;
   const { conteiner, sub, text, cover } = styles;
   return (
     <TouchableOpacity onPress={onPress}>
